@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h2>Student Dashboard</h2>
+
+{% for circular in circulars %}
+    <div style="border:1px solid black; padding:10px; margin:10px;">
+        <h3>{{ circular[1] }}</h3>
+        <p>{{ circular[2] }}</p>
+        <strong>Priority: {{ circular[3] }}</strong>
+    </div>
+{% endfor %}
+
+<a href="/logout">Logout</a>
+
+</body>
+</html>
