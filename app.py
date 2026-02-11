@@ -22,3 +22,6 @@ def admin():
     cur.close()
 
     return render_template('admin.html', circulars=circulars)
+if __name__ == '__main__':
+    app.run(debug=True)
+
