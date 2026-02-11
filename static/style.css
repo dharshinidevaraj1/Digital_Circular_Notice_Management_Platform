@@ -170,6 +170,14 @@ overflow-y:auto;
 padding:30px;
 }
 
+/* Ensure templates using .main-content get the same offset as .main */
+.main-content{
+    margin-left:220px;
+    height:100vh;
+    overflow-y:auto;
+    padding:30px;
+}
+
 /* HEADER */
 .header{
 margin-bottom:20px;

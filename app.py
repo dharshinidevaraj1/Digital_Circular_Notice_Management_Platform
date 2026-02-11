@@ -196,7 +196,8 @@ def mark_read(circular_id):
 # ---------------- PROFILE PAGE ----------------
 @app.route('/profile')
 def profile():
-    if session.get('role') != 'user':
+    # allow both regular users and admins to view the profile page
+    if session.get('role') not in ('user', 'admin'):
         return redirect('/')
 
     user_id = session.get('user_id')
@@ -237,12 +238,12 @@ def circular():
 def read_percentage():
     return render_template("read_percentage.html", active="read")
 
-@app.route("/profile")
-def profile():
+@app.route("/user_profile")
+def admin_profile():
     return render_template("profile.html", active="profile")
 
 @app.route("/logout")
-def logout():
+def admin_logout():
     return redirect(url_for("index"))
 
 

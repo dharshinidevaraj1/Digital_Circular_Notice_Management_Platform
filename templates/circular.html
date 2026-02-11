@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="header">
+    <h1>Circular Management</h1>
+</div>
+
+<div class="form-box">
+    <form>
+        <input type="text" placeholder="Title" required>
+        <textarea placeholder="Description" required></textarea>
+        <input type="date" required>
+        <input type="file">
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<div class="card">
+    <h3>Existing Circulars</h3>
+
+    <table border="1" width="100%">
+        <tr>
+            <th>Title</th>
+            <th>Date</th>
+            <th>File</th>
+            <th>View</th>
+            <th>Delete</th>
+        </tr>
+
+        <tr>
+            <td>Holiday Notice</td>
+            <td>2025-01-10</td>
+            <td>PDF</td>
+            <td><button>View</button></td>
+            <td><button>Delete</button></td>
+        </tr>
+    </table>
+</div>
+
+{% endblock %}
