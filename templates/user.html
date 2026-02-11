@@ -4,9 +4,12 @@
     <title>User Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
 
-<h2>Student Dashboard</h2>
+<h2 style="text-align:center;">Student Dashboard</h2>
+
+<div class="container">
 
 {% for circular in circulars %}
 <div class="card">
@@ -25,8 +28,11 @@
 </div>
 {% endfor %}
 
+</div>
 
-<a href="/logout">Logout</a>
+<div style="text-align:center;">
+    <a href="/logout">Logout</a>
+</div>
 
 </body>
 </html>
