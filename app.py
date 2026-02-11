@@ -11,6 +11,23 @@ app.config['MYSQL_DB'] = 'digital_circular'
 
 mysql = MySQL(app)
 
+@app.route('/')
+def login():
+    return render_template('login.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login_post():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        
+        # Add your login logic here
+        # For now, just redirect to admin
+        session['role'] = 'student'
+        return redirect('/dashboard')
+    
+    return render_template('login.html')
+
 @app.route('/admin')
 def admin():
     if session.get('role') != 'admin':
