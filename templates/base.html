@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Panel</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="sidebar">
+<h2>Admin Panel</h2>
+
+<a href="{{ url_for('dashboard') }}" class="{% if active=='dashboard' %}active{% endif %}">Dashboard</a>
+<a href="{{ url_for('circular') }}" class="{% if active=='circular' %}active{% endif %}">Circular</a>
+<a href="{{ url_for('read_percentage') }}" class="{% if active=='read' %}active{% endif %}">Read %</a>
+<a href="{{ url_for('profile') }}" class="{% if active=='profile' %}active{% endif %}">Profile</a>
+<a href="{{ url_for('logout') }}">Logout</a>
+</div>
+
+<div class="main">
+{% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

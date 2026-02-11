@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, url_for
 from flask_mysqldb import MySQL
 import traceback
 import base64
@@ -6,6 +6,7 @@ import matplotlib
 matplotlib.use('Agg')  # 🔥 VERY IMPORTANT - non GUI backend
 import matplotlib.pyplot as plt
 import io
+
 
 app = Flask(__name__)
 app.secret_key = "hackathon_secret"
@@ -172,16 +173,16 @@ def mark_read(circular_id):
 
     cur = mysql.connection.cursor()
 
-    # Check if already marked
+    # Check if already marked as read
     cur.execute(
-        "SELECT * FROM reads WHERE user_id=%s AND circular_id=%s",
+        "SELECT * FROM circular_reads WHERE user_id=%s AND circular_id=%s",
         (user_id, circular_id)
     )
     existing = cur.fetchone()
 
     if not existing:
         cur.execute(
-            "INSERT INTO reads (user_id, circular_id) VALUES (%s, %s)",
+            "INSERT INTO circular_reads (user_id, circular_id) VALUES (%s, %s)",
             (user_id, circular_id)
         )
         mysql.connection.commit()
@@ -189,6 +190,7 @@ def mark_read(circular_id):
     cur.close()
 
     return redirect('/user')
+
 
 
 # ---------------- PROFILE PAGE ----------------
@@ -218,6 +220,31 @@ def profile():
 def logout():
     session.clear()
     return redirect('/')
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html", active="dashboard")
+
+@app.route("/circular")
+def circular():
+    return render_template("circular.html", active="circular")
+
+@app.route("/read_percentage")
+def read_percentage():
+    return render_template("read_percentage.html", active="read")
+
+@app.route("/profile")
+def profile():
+    return render_template("profile.html", active="profile")
+
+@app.route("/logout")
+def logout():
+    return redirect(url_for("index"))
+
 
 
 # ---------------- RUN APP ----------------

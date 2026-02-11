@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="header">
+<h1>Dashboard</h1>
+</div>
+
+<div class="stats">
+<div class="card">Total Users : 120</div>
+<div class="card">Total Circulars : 25</div>
+<div class="card">Total Reads : 300</div>
+</div>
+
+<div class="analytics">
+<div class="progress-section">
+<h3>Read Progress</h3>
+
+<p>Circular A</p>
+<div class="progress-bar"><div style="width:70%"></div></div>
+
+<p>Circular B</p>
+<div class="progress-bar"><div style="width:50%"></div></div>
+
+</div>
+
+<div class="chart-section">
+<h3>Chart Area</h3>
+<p>Chart here</p>
+</div>
+</div>
+
+{% endblock %}
