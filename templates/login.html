@@ -4,18 +4,28 @@
     <title>Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body class="center-body">
+<body>
 
-    <div class="login-card">
+<div class="login-container">
+
+    <!-- LEFT SIDE IMAGE -->
+    <div class="login-left">
+        <img src="{{ url_for('static', filename='university.jpg') }}" alt="University">
+    </div>
+
+    <!-- RIGHT SIDE LOGIN FORM -->
+    <div class="login-right">
         <h2>Digital Circular Platform</h2>
-        <h3>Login</h3>
+        <h3>Student Login</h3>
 
         <form method="post">
-            <input type="email" name="email" placeholder="Email" required><br>
-            <input type="password" name="password" placeholder="Password" required><br>
-            <button type="submit">Login</button>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Sign In</button>
         </form>
     </div>
+
+</div>
 
 </body>
 </html>
