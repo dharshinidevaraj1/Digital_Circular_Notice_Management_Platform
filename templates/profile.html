@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Statistics</title>
+    <title>Profile</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
@@ -9,27 +9,24 @@
 
 <div class="dashboard">
 
-    <!-- SIDEBAR -->
     <div class="sidebar">
         <h2>Student Panel</h2>
         <a href="/user">Circulars</a>
         <a href="/stats">Stats</a>
+        <a href="/profile">Profile</a>
         <a href="/logout">Logout</a>
     </div>
 
-    <!-- MAIN CONTENT -->
     <div class="main-content">
-        <h2>Statistics Dashboard</h2>
 
-        <h3>Priority Distribution</h3>
-        <img src="data:image/png;base64,{{ plot_url }}">
+        <h2>My Profile</h2>
 
-        <h3>Circulars Over Time</h3>
-        <img src="data:image/png;base64,{{ plot_url2 }}">
-
-        <h3>Read vs Unread</h3>
-        <img src="data:image/png;base64,{{ plot_url3 }}">
-
+        <div class="card">
+            <p><strong>Name:</strong> {{ user[0] }}</p>
+            <p><strong>Email:</strong> {{ user[1] }}</p>
+            <p><strong>Role:</strong> {{ user[2] }}</p>
+            <p><strong>Total Circulars Read:</strong> {{ read_count }}</p>
+        </div>
 
     </div>
 

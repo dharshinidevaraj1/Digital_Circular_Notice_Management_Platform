@@ -2,6 +2,9 @@ from flask import Flask, render_template, request, redirect, session
 from flask_mysqldb import MySQL
 import traceback
 import base64
+import matplotlib
+matplotlib.use('Agg')  # 🔥 VERY IMPORTANT - non GUI backend
+import matplotlib.pyplot as plt
 import io
 
 app = Flask(__name__)
@@ -99,7 +102,7 @@ def user():
     return render_template('user.html', circulars=circulars)
 
 # ---------------- STATS DASHBOARD ----------------
-import matplotlib.pyplot as plt
+
 @app.route('/stats')
 def stats():
     if session.get('role') != 'user':
@@ -158,6 +161,57 @@ def stats():
     cur.close()
 
     return render_template('stats.html', plot_url=plot_url, plot_url2=plot_url2)
+
+# ---------------- MARK AS READ ----------------
+@app.route('/mark_read/<int:circular_id>')
+def mark_read(circular_id):
+    if session.get('role') != 'user':
+        return redirect('/')
+
+    user_id = session.get('user_id')
+
+    cur = mysql.connection.cursor()
+
+    # Check if already marked
+    cur.execute(
+        "SELECT * FROM reads WHERE user_id=%s AND circular_id=%s",
+        (user_id, circular_id)
+    )
+    existing = cur.fetchone()
+
+    if not existing:
+        cur.execute(
+            "INSERT INTO reads (user_id, circular_id) VALUES (%s, %s)",
+            (user_id, circular_id)
+        )
+        mysql.connection.commit()
+
+    cur.close()
+
+    return redirect('/user')
+
+
+# ---------------- PROFILE PAGE ----------------
+@app.route('/profile')
+def profile():
+    if session.get('role') != 'user':
+        return redirect('/')
+
+    user_id = session.get('user_id')
+
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT name, email, role FROM users WHERE id=%s", (user_id,))
+    user = cur.fetchone()
+
+    # Count read circulars
+    cur.execute("SELECT COUNT(*) FROM circular_reads WHERE user_id=%s", (user_id,))
+    read_count = cur.fetchone()[0]
+
+    cur.close()
+
+    return render_template('profile.html',
+                           user=user,
+                           read_count=read_count)
 
 # ---------------- LOGOUT ----------------
 @app.route('/logout')

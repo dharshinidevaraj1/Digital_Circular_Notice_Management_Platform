@@ -14,6 +14,7 @@
         <h2>Student Panel</h2>
         <a href="/user">Circulars</a>
         <a href="/stats">Stats</a>
+        <a href="/profile">Profile</a>
         <a href="/logout">Logout</a>
     </div>
 
@@ -31,21 +32,28 @@
         </form>
 
         {% for circular in circulars %}
-        <div class="card">
+<div class="card">
 
-            <h3>{{ circular[1] }}</h3>
-            <p>{{ circular[2] }}</p>
+    <h3>{{ circular[1] }}</h3>
+    <p>{{ circular[2] }}</p>
 
-            {% if circular[3] == 'urgent' %}
-                <span class="badge urgent">Urgent</span>
-            {% elif circular[3] == 'medium' %}
-                <span class="badge medium">Medium</span>
-            {% else %}
-                <span class="badge normal">Normal</span>
-            {% endif %}
+    {% if circular[3] == 'urgent' %}
+        <span class="badge urgent">Urgent</span>
+    {% elif circular[3] == 'medium' %}
+        <span class="badge medium">Medium</span>
+    {% else %}
+        <span class="badge normal">Normal</span>
+    {% endif %}
 
-        </div>
-        {% endfor %}
+    <br><br>
+
+    <a href="/mark_read/{{ circular[0] }}">
+        <button>Mark as Read</button>
+    </a>
+
+</div>
+{% endfor %}
+
 
     </div>
 
