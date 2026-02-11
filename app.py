@@ -37,3 +37,34 @@ def home():
             return "Invalid Credentials"
 
     return render_template('login.html')
+@app.route('/admin')
+def admin():
+    if session.get('role') != 'admin':
+        return redirect('/')
+
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM circulars ORDER BY created_at DESC")
+    circulars = cur.fetchall()
+    cur.close()
+
+    return render_template('admin.html', circulars=circulars)
+
+@app.route('/user')
+def user():
+    if session.get('role') != 'student':
+        return redirect('/')
+    
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM circulars ORDER BY created_at DESC")
+    circulars = cur.fetchall()
+    cur.close()
+    
+    return render_template('user.html', circulars=circulars)
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
+
+if __name__ == '__main__':
+    app.run(debug=True)
