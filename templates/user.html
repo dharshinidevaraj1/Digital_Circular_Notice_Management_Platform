@@ -9,12 +9,22 @@
 <h2>Student Dashboard</h2>
 
 {% for circular in circulars %}
-    <div style="border:1px solid black; padding:10px; margin:10px;">
-        <h3>{{ circular[1] }}</h3>
-        <p>{{ circular[2] }}</p>
-        <strong>Priority: {{ circular[3] }}</strong>
-    </div>
+<div class="card">
+
+    <h3>{{ circular[1] }}</h3>
+    <p>{{ circular[2] }}</p>
+
+    {% if circular[3] == 'urgent' %}
+        <span class="badge urgent">Urgent</span>
+    {% elif circular[3] == 'medium' %}
+        <span class="badge medium">Medium</span>
+    {% else %}
+        <span class="badge normal">Normal</span>
+    {% endif %}
+
+</div>
 {% endfor %}
+
 
 <a href="/logout">Logout</a>
 

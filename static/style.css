@@ -85,3 +85,35 @@ body {
 .login-right button:hover {
     background-color: #e3f2fd;
 }
+/* Circular Card */
+.card {
+    background: white;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Badge Base */
+.badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    margin-top: 10px;
+}
+
+/* Specific Badges */
+.urgent {
+    background-color: #e53935;
+}
+
+.medium {
+    background-color: #fb8c00;
+}
+
+.normal {
+    background-color: #43a047;
+}
