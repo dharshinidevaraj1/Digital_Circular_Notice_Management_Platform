@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Statistics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>Student Panel</h2>
+        <a href="/user">Circulars</a>
+        <a href="/stats">Stats</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <h2>Statistics Dashboard</h2>
+
+        <h3>Priority Distribution</h3>
+        <img src="data:image/png;base64,{{ plot_url }}">
+
+        <h3>Circulars Over Time</h3>
+        <img src="data:image/png;base64,{{ plot_url2 }}">
+
+    </div>
+
+</div>
+
+</body>
+</html>

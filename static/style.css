@@ -85,35 +85,42 @@ body {
 .login-right button:hover {
     background-color: #e3f2fd;
 }
-/* Circular Card */
-.card {
-    background: white;
-    padding: 20px;
-    margin: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+
+
+.dashboard {
+    display: flex;
+    height: 100vh;
 }
 
-/* Badge Base */
-.badge {
-    display: inline-block;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: bold;
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    background-color: #0d47a1;
     color: white;
-    margin-top: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Specific Badges */
-.urgent {
-    background-color: #e53935;
+.sidebar h2 {
+    margin-bottom: 30px;
 }
 
-.medium {
-    background-color: #fb8c00;
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    margin: 10px 0;
+    padding: 8px;
+    border-radius: 5px;
 }
 
-.normal {
-    background-color: #43a047;
+.sidebar a:hover {
+    background-color: #1565c0;
+}
+
+/* Main content */
+.main-content {
+    flex: 1;
+    padding: 30px;
+    background-color: #f5f7fa;
 }

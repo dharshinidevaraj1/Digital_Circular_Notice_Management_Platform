@@ -1,37 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User Dashboard</title>
+    <title>Student Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
 
-<h2 style="text-align:center;">Student Dashboard</h2>
+<div class="dashboard">
 
-<div class="container">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>Student Panel</h2>
+        <a href="/user">Circulars</a>
+        <a href="/stats">Stats</a>
+        <a href="/logout">Logout</a>
+    </div>
 
-{% for circular in circulars %}
-<div class="card">
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
 
-    <h3>{{ circular[1] }}</h3>
-    <p>{{ circular[2] }}</p>
+        <h2>Circulars</h2>
 
-    {% if circular[3] == 'urgent' %}
-        <span class="badge urgent">Urgent</span>
-    {% elif circular[3] == 'medium' %}
-        <span class="badge medium">Medium</span>
-    {% else %}
-        <span class="badge normal">Normal</span>
-    {% endif %}
+        <!-- SORT OPTION -->
+        <form method="get">
+            <select name="sort" onchange="this.form.submit()">
+                <option value="new">Newest First</option>
+                <option value="old">Oldest First</option>
+            </select>
+        </form>
 
-</div>
-{% endfor %}
+        {% for circular in circulars %}
+        <div class="card">
 
-</div>
+            <h3>{{ circular[1] }}</h3>
+            <p>{{ circular[2] }}</p>
 
-<div style="text-align:center;">
-    <a href="/logout">Logout</a>
+            {% if circular[3] == 'urgent' %}
+                <span class="badge urgent">Urgent</span>
+            {% elif circular[3] == 'medium' %}
+                <span class="badge medium">Medium</span>
+            {% else %}
+                <span class="badge normal">Normal</span>
+            {% endif %}
+
+        </div>
+        {% endfor %}
+
+    </div>
+
 </div>
 
 </body>
