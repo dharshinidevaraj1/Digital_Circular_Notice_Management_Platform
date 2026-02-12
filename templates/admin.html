@@ -1,15 +1,44 @@
 {% extends "base.html" %}
+
 {% block content %}
 
-<h1>Admin Profile</h1>
+<div class="header">
+    <h1>Admin Dashboard</h1>
+    <p>Welcome to the Digital Circular Management System</p>
+</div>
 
 <div class="card">
-<p>Name : Admin</p>
-<p>Email : admin@mail.com</p>
-<p>Role : Admin</p>
+    <h3>Getting Started</h3>
+    <p>
+        Use the left side navigation panel to manage circulars, 
+        view read analytics, and update your profile.
+    </p>
+</div>
 
-<button>Edit Profile</button>
-<button>Change Password</button>
+<div class="card">
+    <h3>All Circulars</h3>
+
+    <table border="1" width="100%">
+        <tr>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Priority</th>
+            <th>Description</th>
+            <th>View</th>
+            <th>Delete</th>
+        </tr>
+
+        {% for circular in circulars %}
+        <tr>
+            <td>{{ circular[1] }}</td>
+            <td>{{ circular[2] }}</td>
+            <td>{{ circular[3] }}</td>
+            <td>{{ circular[4] }}</td>
+            <td><a href="/read_circular/{{ circular[0] }}"><button>View</button></a></td>
+            <td><a href="/delete_circular/{{ circular[0] }}"><button>Delete</button></a></td>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
 
 {% endblock %}
