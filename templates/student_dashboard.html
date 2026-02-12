@@ -168,7 +168,7 @@
             {% for circular in circulars %}
             <div class="circular-card">
                 <h4>{{ circular[1] }}</h4>
-                <p class="date">📅 {{ circular[2] if circular[2] is string else circular[2].strftime('%Y-%m-%d') }}</p>
+                <p class="date">📅 {{ circular[2] }}</p>
                 
                 {% if circular[3] == 'High' %}
                     <span class="priority high">🔴 {{ circular[3] }} Priority</span>
@@ -178,7 +178,7 @@
                     <span class="priority low">🟢 {{ circular[3] }} Priority</span>
                 {% endif %}
 
-                <p style="color: #555; line-height: 1.6; margin-top: 10px;">{{ circular[4][:100] }}...</p>
+                <p style="color: #555; line-height: 1.6; margin-top: 10px;">{{ circular[4] }}</p>
 
                 <div class="btn-group">
                     <a href="/read_circular/{{ circular[0] }}" style="text-decoration: none;">

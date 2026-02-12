@@ -43,8 +43,8 @@ Important college announcements often get lost in emails or WhatsApp groups. The
 ## Screenshots
 Home Page: ![alt text](<Home page.png>)
 Dashboard Page: ![alt text](<dashboard page.png>)
-Circular Page: ![alt text](<circular page.png>)
-Student_dashboard page: ![alt text](image.png)
+Circular Page: ![alt text](<circular page-1.png>) 
+Student_dashboard page: ![alt text](<student dashboard page.png>)
 
 ## Team
 - Dharshini D
