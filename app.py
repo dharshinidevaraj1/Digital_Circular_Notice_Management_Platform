@@ -102,6 +102,42 @@ def user():
 
     return render_template('user.html', circulars=circulars)
 
+# ---------------- STUDENT DASHBOARD ----------------
+@app.route('/student_dashboard')
+def student_dashboard():
+    if session.get('role') != 'user':
+        return redirect('/')
+
+    sort = request.args.get('sort')
+    user_id = session.get('user_id')
+
+    cur = mysql.connection.cursor()
+
+    # Get circulars
+    if sort == 'old':
+        cur.execute("SELECT * FROM circulars ORDER BY created_at ASC")
+    else:
+        cur.execute("SELECT * FROM circulars ORDER BY created_at DESC")
+
+    circulars = cur.fetchall()
+
+    # Count stats
+    cur.execute("SELECT COUNT(*) FROM circulars")
+    total_circulars = cur.fetchone()[0]
+
+    cur.execute("SELECT COUNT(*) FROM circular_reads WHERE user_id=%s", (user_id,))
+    read_circulars = cur.fetchone()[0]
+
+    unread_circulars = total_circulars - read_circulars
+
+    cur.close()
+
+    return render_template('student_dashboard.html', 
+                         circulars=circulars, 
+                         total_circulars=total_circulars,
+                         read_circulars=read_circulars,
+                         unread_circulars=unread_circulars)
+
 # ---------------- STATS DASHBOARD ----------------
 
 @app.route('/stats')
