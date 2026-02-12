@@ -61,4 +61,4 @@ Student_dashboard page: ![alt text](<student dashboard page.png>)
 
 ## Team members
 - Dharshini D
-- Tharani Priya T
+- Tharani Priya P
