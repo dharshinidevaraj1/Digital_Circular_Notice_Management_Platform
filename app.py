@@ -230,9 +230,49 @@ def index():
 def dashboard():
     return render_template("dashboard.html", active="dashboard")
 
-@app.route("/circular")
+@app.route("/circular", methods=['GET', 'POST'])
 def circular():
-    return render_template("circular.html", active="circular")
+    if request.method == 'POST':
+        return create_circular()
+    
+    # GET request - show existing circulars
+    if mysql is None:
+        return "Database connection error"
+    
+    try:
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM circulars ORDER BY created_at DESC")
+        circulars = cur.fetchall()
+        cur.close()
+        return render_template("circular.html", active="circular", circulars=circulars)
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+
+@app.route("/create_circular", methods=['POST'])
+def create_circular():
+    try:
+        title = request.form['title']
+        description = request.form['description']
+        date = request.form['date']
+        priority = request.form['priority']
+        
+        if mysql is None:
+            return "Database connection error"
+        
+        cur = mysql.connection.cursor()
+        cur.execute(
+            "INSERT INTO circulars (title, date, priority, description, created_at) VALUES (%s, %s, %s, %s, NOW())",
+            (title, date, priority, description)
+        )
+        mysql.connection.commit()
+        cur.close()
+        
+        # Redirect back to circular page
+        return redirect('/circular')
+    
+    except Exception as e:
+        return f"Error creating circular: {str(e)}"
 
 @app.route("/read_percentage")
 def read_percentage():
