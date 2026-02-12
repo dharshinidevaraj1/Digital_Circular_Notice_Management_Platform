@@ -59,6 +59,9 @@ Dashboard Page: ![alt text](<dashboard page.png>)
 Circular Page: ![alt text](<circular page-1.png>) 
 Student_dashboard page: ![alt text](<student dashboard page.png>)
 
+## Demo video link
+- https://drive.google.com/file/d/19ksUuonsHFSe0ktmHlSeWYCc7tXapGlY/view?usp=drive_link 
+
 ## Team members
 - Dharshini D
 - Tharani Priya P
