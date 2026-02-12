@@ -168,7 +168,7 @@
             {% for circular in circulars %}
             <div class="circular-card">
                 <h4>{{ circular[1] }}</h4>
-                <p class="date">📅 {{ circular[2] }}</p>
+                <p class="date">📅 {{ circular[2] if circular[2] is string else circular[2].strftime('%Y-%m-%d') }}</p>
                 
                 {% if circular[3] == 'High' %}
                     <span class="priority high">🔴 {{ circular[3] }} Priority</span>
