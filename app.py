@@ -74,9 +74,13 @@ def admin():
         cur = mysql.connection.cursor()
         cur.execute("SELECT * FROM circulars ORDER BY created_at DESC")
         circulars = cur.fetchall()
+        
+        # Fetch feedback
+        cur.execute("SELECT * FROM feedback ORDER BY created_at DESC")
+        feedbacks = cur.fetchall()
         cur.close()
 
-        return render_template('admin.html', circulars=circulars)
+        return render_template('admin.html', circulars=circulars, feedbacks=feedbacks)
 
     except Exception as e:
         return f"Error: {str(e)}"
@@ -98,9 +102,13 @@ def user():
         cur.execute("SELECT * FROM circulars ORDER BY created_at DESC")
 
     circulars = cur.fetchall()
+    
+    # Fetch feedback
+    cur.execute("SELECT * FROM feedback ORDER BY created_at DESC")
+    feedbacks = cur.fetchall()
     cur.close()
 
-    return render_template('user.html', circulars=circulars)
+    return render_template('user.html', circulars=circulars, feedbacks=feedbacks)
 
 # ---------------- STATS DASHBOARD ----------------
 
@@ -192,8 +200,39 @@ def mark_read(circular_id):
     return redirect('/user')
 
 
-
-# ---------------- PROFILE PAGE ----------------
+# ---------------- ADD FEEDBACK/COMMENT ----------------
+@app.route('/add_feedback', methods=['POST'])
+def add_feedback():
+    try:
+        comment = request.form['comment']
+        user_id = session.get('user_id')
+        
+        if mysql is None:
+            return "Database connection error"
+        
+        # Get user name
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT name FROM users WHERE id=%s", (user_id,))
+        user = cur.fetchone()
+        user_name = user[0] if user else "Anonymous"
+        
+        # Insert feedback
+        cur.execute(
+            "INSERT INTO feedback (user_id, comment, user_name, created_at) VALUES (%s, %s, %s, NOW())",
+            (user_id, comment, user_name)
+        )
+        mysql.connection.commit()
+        cur.close()
+        
+        # Redirect back to appropriate page
+        role = session.get('role')
+        if role == 'admin':
+            return redirect('/admin')
+        else:
+            return redirect('/user')
+    
+    except Exception as e:
+        return f"Error adding feedback: {str(e)}"
 @app.route('/profile')
 def profile():
     # allow both regular users and admins to view the profile page
